@@ -3,9 +3,7 @@ package com.liuscoding.edu.controller;
 
 import com.liuscoding.edu.entity.Teacher;
 import com.liuscoding.edu.service.TeacherService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +37,16 @@ public class TeacherController {
         return teacherList;
     }
 
+
+    /**
+     * 2. 逻辑删除讲师的方法
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public boolean deleteTeacher(@PathVariable String id){
+        boolean result = teacherService.removeById(id);
+        return result;
+    }
 }
 
