@@ -2,6 +2,7 @@ package com.liuscoding.servicebase.exceptionhandler;
 
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
 
@@ -33,8 +35,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(GuliException.class)
     public ResultVo error(GuliException e) {
-        e.printStackTrace();
-
+        log.error("异常信息：{}",e);
         return ResultVo.error().code(e.getCode()).message(e.getMsg());
     }
 }
