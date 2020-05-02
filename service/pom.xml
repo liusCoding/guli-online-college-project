@@ -112,6 +112,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.liuscoding</groupId>
+            <artifactId>service_base</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>

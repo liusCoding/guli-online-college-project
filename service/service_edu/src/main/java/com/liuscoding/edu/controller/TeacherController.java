@@ -3,6 +3,9 @@ package com.liuscoding.edu.controller;
 
 import com.liuscoding.edu.entity.Teacher;
 import com.liuscoding.edu.service.TeacherService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/edu/teacher")
+@Api(tags = "讲师管理")
 public class TeacherController {
 
     /**
@@ -31,6 +35,7 @@ public class TeacherController {
      * 1.查询讲师表的所有数据
      * @return List<Teacher>
      */
+    @ApiOperation("查询所有讲师列表")
     @GetMapping("/findAll")
     public List<Teacher> findAll(){
         List<Teacher> teacherList = teacherService.list(null);
@@ -44,7 +49,8 @@ public class TeacherController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public boolean deleteTeacher(@PathVariable String id){
+    @ApiOperation("逻辑删除讲师")
+    public boolean deleteTeacher(@ApiParam(name = "id",required = true) @PathVariable String id){
         boolean result = teacherService.removeById(id);
         return result;
     }
