@@ -1,6 +1,7 @@
 package com.liuscoding.edu.controller;
 
 
+import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.edu.entity.Teacher;
 import com.liuscoding.edu.service.TeacherService;
 import io.swagger.annotations.Api;
@@ -37,9 +38,9 @@ public class TeacherController {
      */
     @ApiOperation("查询所有讲师列表")
     @GetMapping("/findAll")
-    public List<Teacher> findAll(){
+    public ResultVo findAll(){
         List<Teacher> teacherList = teacherService.list(null);
-        return teacherList;
+        return ResultVo.ok().data("items",teacherList);
     }
 
 
@@ -50,9 +51,13 @@ public class TeacherController {
      */
     @DeleteMapping("/{id}")
     @ApiOperation("逻辑删除讲师")
-    public boolean deleteTeacher(@ApiParam(name = "id",required = true) @PathVariable String id){
+    public ResultVo deleteTeacher(@ApiParam(name = "id",required = true) @PathVariable String id){
         boolean result = teacherService.removeById(id);
-        return result;
+        if(result){
+           return ResultVo.ok();
+        }else {
+           return ResultVo.error();
+        }
     }
 }
 

@@ -213,6 +213,13 @@
                 <artifactId>service_base</artifactId>
                 <version>${project-version}</version>
             </dependency>
+
+
+            <dependency>
+                <groupId>com.liuscoding</groupId>
+                <artifactId>common_utils</artifactId>
+                <version>${project-version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
