@@ -1,6 +1,8 @@
 package com.liuscoding.edu.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.edu.entity.Teacher;
 import com.liuscoding.edu.service.TeacherService;
@@ -9,7 +11,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -58,6 +62,23 @@ public class TeacherController {
         }else {
            return ResultVo.error();
         }
+    }
+
+    @ApiOperation("分页查询讲师（不带条件）")
+    @GetMapping("/pageTeacher/{page}/{size}")
+    public ResultVo pageTeacher(@ApiParam(value = "page",defaultValue = "1") @PathVariable("page") int page,
+                                @ApiParam(value = "size",defaultValue = "10")@PathVariable("size") int size){
+
+        //1.创建page对象
+        IPage<Teacher> teacherPage = new Page<>(page, size);
+        teacherPage = teacherService.page(teacherPage, null);
+
+        Map<String,Object> map = new HashMap<>(16);
+
+        map.put("total",teacherPage.getTotal());
+        map.put("rows",teacherPage.getRecords());
+
+        return ResultVo.ok().data(map);
     }
 }
 
