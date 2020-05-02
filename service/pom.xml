@@ -116,10 +116,6 @@
             <artifactId>service_base</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.liuscoding</groupId>
-            <artifactId>common_utils</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

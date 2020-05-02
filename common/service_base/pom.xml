@@ -11,5 +11,11 @@
 
     <artifactId>service_base</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.liuscoding</groupId>
+            <artifactId>common_utils</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
