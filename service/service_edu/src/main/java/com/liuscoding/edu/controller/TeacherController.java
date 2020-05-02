@@ -1,19 +1,23 @@
 package com.liuscoding.edu.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.edu.entity.Teacher;
+import com.liuscoding.edu.model.query.TeacherQuery;
 import com.liuscoding.edu.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -70,14 +74,45 @@ public class TeacherController {
                                 @ApiParam(value = "size",defaultValue = "10")@PathVariable("size") int size){
 
         //1.创建page对象
+        //调用方法时候，底层封装，把分页所有数据封装到pageTeacher对象里面
         IPage<Teacher> teacherPage = new Page<>(page, size);
-        teacherPage = teacherService.page(teacherPage, null);
+        teacherService.page(teacherPage, null);
 
         Map<String,Object> map = new HashMap<>(16);
 
         map.put("total",teacherPage.getTotal());
         map.put("rows",teacherPage.getRecords());
 
+        return ResultVo.ok().data(map);
+    }
+
+
+    /**
+     * 教师分页带条件查询
+     * @param page 当前页
+     * @param size  每页的数量
+     * @return   ResultVo
+     */
+
+    @ApiOperation("讲师分页查询带条件")
+    @PostMapping("/pageTeacherCondition/{page}/{size}")
+    public ResultVo pageTeacherCondition(@ApiParam(value = "page",defaultValue = "1") @PathVariable("page") int page,
+                                         @ApiParam(value = "size",defaultValue = "10")@PathVariable("size") int size,
+                                         @RequestBody TeacherQuery teacherQuery){
+        //创建page对象
+        IPage<Teacher> pageTeacher = new Page<>(page,size);
+
+        //构建条件
+        LambdaQueryWrapper<Teacher> query = new LambdaQueryWrapper<>();
+        query.like(StringUtils.isNotBlank(teacherQuery.getName()),Teacher::getName,teacherQuery.getName());
+        query.eq(Objects.nonNull(teacherQuery.getLevel()),Teacher::getLevel,teacherQuery.getLevel());
+        query.ge(StringUtils.isNotBlank(teacherQuery.getBegin()),Teacher::getGmtCreate,teacherQuery.getBegin());
+        query.le(StringUtils.isNotBlank(teacherQuery.getEnd()),Teacher::getGmtCreate,teacherQuery.getEnd());
+
+        teacherService.page(pageTeacher, query);
+        Map<String,Object> map = new HashMap<>(16);
+        map.put("total",pageTeacher.getTotal());
+        map.put("rows",pageTeacher.getRecords());
         return ResultVo.ok().data(map);
     }
 }
