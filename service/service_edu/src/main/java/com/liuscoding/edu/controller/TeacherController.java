@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -114,6 +115,29 @@ public class TeacherController {
         map.put("total",pageTeacher.getTotal());
         map.put("rows",pageTeacher.getRecords());
         return ResultVo.ok().data(map);
+    }
+
+    @GetMapping("/getTeacher/{id}")
+    @ApiOperation("根据讲师id进行查询")
+    public ResultVo getTeacher(@ApiParam(value = "id",required = true) @PathVariable("id") String id){
+        Teacher teacher = teacherService.getById(id);
+        return ResultVo.ok().data("teacher",teacher);
+    }
+
+    @ApiOperation("修改讲师功能")
+    @PutMapping("updateTeacher/{id}")
+    public ResultVo updateTeacher(@PathVariable String id,@RequestBody Teacher teacher){
+
+        Teacher result = teacherService.getById(id);
+        BeanUtils.copyProperties(teacher,result);
+        result.setId(id);
+        boolean updateResult = teacherService.updateById(result);
+
+        if(updateResult){
+            return ResultVo.ok();
+        }else {
+            return ResultVo.error();
+        }
     }
 }
 
