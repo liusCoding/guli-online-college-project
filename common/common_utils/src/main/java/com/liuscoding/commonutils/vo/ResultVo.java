@@ -1,6 +1,7 @@
 package com.liuscoding.commonutils.vo;
 
-import com.liuscoding.commonutils.enums.ResultCode;
+import com.liuscoding.commonutils.result.IResultCode;
+import com.liuscoding.commonutils.result.ResultCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -86,7 +87,7 @@ public class ResultVo {
         return this;
     }
 
-    public ResultVo  codeAndMessage(ResultCode resultCode){
+    public ResultVo  codeAndMessage(IResultCode resultCode){
         this.setCode(resultCode.getCode());
         this.setMessage(resultCode.getMsg());
         return this;

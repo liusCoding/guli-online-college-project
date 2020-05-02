@@ -1,4 +1,4 @@
-package com.liuscoding.commonutils.enums;
+package com.liuscoding.commonutils.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum ResultCode {
+public enum ResultCode implements IResultCode {
 
     SUCCESS(20000,"操作成功"),
 

@@ -1,6 +1,7 @@
 package com.liuscoding.servicebase.exceptionhandler;
 
 import com.liuscoding.commonutils.vo.ResultVo;
+import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,5 +23,18 @@ public class GlobalExceptionHandler {
     public ResultVo error(Exception e) {
         e.printStackTrace();
         return ResultVo.error().message("执行了全局异常处理..");
+    }
+
+
+    /**
+     * 自定义异常处理
+     * @param e
+     * @return ResultVo
+     */
+    @ExceptionHandler(GuliException.class)
+    public ResultVo error(GuliException e) {
+        e.printStackTrace();
+
+        return ResultVo.error().code(e.getCode()).message(e.getMsg());
     }
 }

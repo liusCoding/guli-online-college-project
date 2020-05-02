@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.edu.entity.Teacher;
+import com.liuscoding.edu.enums.EduResultCode;
 import com.liuscoding.edu.model.query.TeacherQuery;
 import com.liuscoding.edu.service.TeacherService;
+import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,7 +18,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -48,8 +49,10 @@ public class TeacherController {
     @ApiOperation("查询所有讲师列表")
     @GetMapping("/findAll")
     public ResultVo findAll(){
-        List<Teacher> teacherList = teacherService.list(null);
-        return ResultVo.ok().data("items",teacherList);
+
+        throw GuliException.from(EduResultCode.ERROR);
+//        List<Teacher> teacherList = teacherService.list(null);
+//        return ResultVo.ok().data("items",teacherList);
     }
 
 
