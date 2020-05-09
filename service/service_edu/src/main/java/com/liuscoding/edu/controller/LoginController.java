@@ -1,6 +1,7 @@
 package com.liuscoding.edu.controller;
 
 import com.liuscoding.commonutils.vo.ResultVo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @author: liusCoding
  * @create: 2020-05-08 14:03
  */
-
+@Api(tags = "用户登录")
 @RestController
 @RequestMapping("/edu/user")
 @CrossOrigin//解决跨域
