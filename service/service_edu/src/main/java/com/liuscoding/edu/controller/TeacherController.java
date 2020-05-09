@@ -31,6 +31,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/edu/teacher")
 @Api(tags = "讲师管理")
+@CrossOrigin//解决跨域
 public class TeacherController {
 
     /**
@@ -110,7 +111,7 @@ public class TeacherController {
         query.eq(Objects.nonNull(teacherQuery.getLevel()),Teacher::getLevel,teacherQuery.getLevel());
         query.ge(StringUtils.isNotBlank(teacherQuery.getBegin()),Teacher::getGmtCreate,teacherQuery.getBegin());
         query.le(StringUtils.isNotBlank(teacherQuery.getEnd()),Teacher::getGmtCreate,teacherQuery.getEnd());
-
+        query.orderByDesc(Teacher::getGmtCreate);
         teacherService.page(pageTeacher, query);
         Map<String,Object> map = new HashMap<>(16);
         map.put("total",pageTeacher.getTotal());
@@ -126,7 +127,7 @@ public class TeacherController {
     }
 
     @ApiOperation("修改讲师功能")
-    @PutMapping("updateTeacher/{id}")
+    @PutMapping("/updateTeacher/{id}")
     public ResultVo updateTeacher(@PathVariable String id,@RequestBody Teacher teacher){
 
         Teacher result = teacherService.getById(id);
@@ -139,6 +140,21 @@ public class TeacherController {
         }else {
             return ResultVo.error();
         }
+    }
+
+    /**
+     * 添加讲师的方法
+     * @param teacher
+     * @return ResultVo
+     */
+    @PostMapping("addTeacher")
+    public ResultVo addTeacher(@RequestBody Teacher teacher){
+
+        boolean save = teacherService.save(teacher);
+        if(save){
+            return ResultVo.ok();
+        }
+        return ResultVo.error();
     }
 }
 
