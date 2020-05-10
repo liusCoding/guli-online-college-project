@@ -147,6 +147,7 @@ public class TeacherController {
      * @param teacher
      * @return ResultVo
      */
+    @ApiOperation("添加讲师")
     @PostMapping("addTeacher")
     public ResultVo addTeacher(@RequestBody Teacher teacher){
 

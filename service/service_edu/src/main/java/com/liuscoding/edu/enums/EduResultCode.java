@@ -14,7 +14,10 @@ public enum EduResultCode implements IResultCode {
 
     SUCCESS(20000,"操作成功"),
 
-    ERROR(20001,"响应失败")
+    ERROR(20001,"响应失败"),
+
+    FILE_IS_EMPTY(20002,"请上传文件！！！"),
+
     ;
 
     private Integer code;
