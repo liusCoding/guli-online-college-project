@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResultVo error(Exception e) {
         e.printStackTrace();
-        return ResultVo.error().message("执行了全局异常处理..");
+        return ResultVo.error().message("服务器又耍流氓了..");
     }
 
 

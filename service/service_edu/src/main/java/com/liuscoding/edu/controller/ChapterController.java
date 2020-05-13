@@ -77,7 +77,7 @@ public class ChapterController {
     }
 
     @ApiOperation("根据id删除章节")
-    @DeleteMapping("/chapterId")
+    @DeleteMapping("/{chapterId}")
     public ResultVo deleteChapter(@PathVariable String chapterId){
         chapterService.deleteChapter(chapterId);
         return ResultVo.ok();
