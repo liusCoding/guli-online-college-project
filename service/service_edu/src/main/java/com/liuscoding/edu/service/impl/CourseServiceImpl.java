@@ -7,6 +7,7 @@ import com.liuscoding.edu.entity.Subject;
 import com.liuscoding.edu.enums.EduResultCode;
 import com.liuscoding.edu.mapper.CourseMapper;
 import com.liuscoding.edu.model.form.CourseInfoForm;
+import com.liuscoding.edu.model.vo.CourseInfoVo;
 import com.liuscoding.edu.service.CourseDescriptionService;
 import com.liuscoding.edu.service.CourseService;
 import com.liuscoding.edu.service.SubjectService;
@@ -71,5 +72,51 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
 
         return courseId;
+    }
+
+    /**
+     * 根据课程id 查询课程信息
+     *
+     * @param courseId 课程id
+     * @return CourseInfoVo
+     */
+    @Override
+    public CourseInfoVo getCourseInfoByCourseId(String courseId) {
+
+        //1.查询课程信息
+        Course course = this.getById(courseId);
+        CourseInfoVo courseInfoVo = new CourseInfoVo();
+
+        BeanUtils.copyProperties(course,courseInfoVo);
+
+        //2.查询课程描述信息
+        CourseDescription courseDescription = courseDescriptionService.getById(courseId);
+        courseInfoVo.setDescription(courseDescription.getDescription());
+        return courseInfoVo;
+    }
+
+    /**
+     * 修改课程信息
+     *
+     * @param courseInfoForm
+     */
+    @Override
+    public void updateCourse(CourseInfoForm courseInfoForm) {
+        //1.修改课程表
+        Course course = new Course();
+        BeanUtils.copyProperties(courseInfoForm,course);
+        boolean updateResult = updateById(course);
+        if(!updateResult){
+            throw GuliException.from(EduResultCode.UPDATE_ERROR);
+        }
+        
+        //2.修改描述表
+        CourseDescription courseDescription = new CourseDescription(courseInfoForm.getId(),courseInfoForm.getDescription());
+        boolean updateDescResult = courseDescriptionService.updateById(courseDescription);
+
+        if (!updateDescResult){
+            throw GuliException.from(EduResultCode.UPDATE_ERROR);
+        }
+
     }
 }

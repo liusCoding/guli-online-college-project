@@ -2,6 +2,9 @@ package com.liuscoding.edu.service;
 
 import com.liuscoding.edu.entity.Chapter;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liuscoding.edu.model.vo.ChapterVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ChapterService extends IService<Chapter> {
 
+    /**
+     * 根据课程ID 查询课程的章节小节
+     * @param courseId 课程id
+     * @return  章节小节
+     */
+    List<ChapterVo> getChapterVideoByCourseId(String courseId);
 }

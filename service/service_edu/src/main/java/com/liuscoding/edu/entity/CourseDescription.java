@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("edu_course_description")
 @ApiModel(value="CourseDescription对象", description="课程简介")
+@NoArgsConstructor
 public class CourseDescription implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,5 +44,8 @@ public class CourseDescription implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
-
+    public CourseDescription(String id, String description) {
+        this.id = id;
+        this.description = description;
+    }
 }
