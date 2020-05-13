@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liuscoding.edu.entity.Chapter;
 import com.liuscoding.edu.entity.Video;
+import com.liuscoding.edu.enums.EduResultCode;
 import com.liuscoding.edu.mapper.ChapterMapper;
 import com.liuscoding.edu.model.vo.ChapterVo;
 import com.liuscoding.edu.model.vo.VideoVo;
 import com.liuscoding.edu.service.ChapterService;
 import com.liuscoding.edu.service.VideoService;
+import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,5 +70,25 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
         });
 
         return chapterVoList;
+    }
+
+    /**
+     * 根据id删除章节
+     *
+     * @param chapterId
+     */
+    @Override
+    public void deleteChapter(String chapterId) {
+        // 根据chapterId 查询小节表 ，如果查询有数据，不进行删除。
+        LambdaQueryWrapper<Video> chapterQuery = new LambdaQueryWrapper<>();
+        chapterQuery.eq(Video::getChapterId,chapterId);
+        int count = videoService.count(chapterQuery);
+        if (count>0){
+            throw GuliException.from(EduResultCode.DELETE_ERROR);
+        }
+        boolean result = removeById(chapterId);
+        if(!result){
+            throw GuliException.from(EduResultCode.DELETE_ERROR);
+        }
     }
 }

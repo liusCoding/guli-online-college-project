@@ -22,4 +22,11 @@ public interface ChapterService extends IService<Chapter> {
      * @return  章节小节
      */
     List<ChapterVo> getChapterVideoByCourseId(String courseId);
+
+
+    /**
+     * 根据id删除章节
+     * @param chapterId
+     */
+    void deleteChapter(String chapterId);
 }

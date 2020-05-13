@@ -22,7 +22,9 @@ public enum EduResultCode implements IResultCode {
 
     UPDATE_ERROR(20004,"更新失败"),
 
-    DATA_NO_EXIST(20005,"数据不存在");
+    DATA_NO_EXIST(20005,"数据不存在"),
+
+    DELETE_ERROR(20006,"删除失败"),
 
     ;
 
