@@ -18,6 +18,12 @@ public enum EduResultCode implements IResultCode {
 
     FILE_IS_EMPTY(20002,"请上传文件！！！"),
 
+    SAVE_ERROR(20003,"添加失败"),
+
+    UPDATE_ERROR(20004,"更新失败"),
+
+    DATA_NO_EXIST(20005,"数据不存在");
+
     ;
 
     private Integer code;
