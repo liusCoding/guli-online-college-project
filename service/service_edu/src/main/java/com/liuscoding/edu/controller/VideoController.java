@@ -1,7 +1,9 @@
 package com.liuscoding.edu.controller;
 
 
+import com.liuscoding.commonutils.result.ResultCode;
 import com.liuscoding.commonutils.vo.ResultVo;
+import com.liuscoding.edu.client.VodClient;
 import com.liuscoding.edu.entity.Video;
 import com.liuscoding.edu.enums.EduResultCode;
 import com.liuscoding.edu.model.form.VideoForm;
@@ -9,6 +11,7 @@ import com.liuscoding.edu.service.VideoService;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +31,11 @@ public class VideoController {
 
     private final VideoService videoService;
 
-    public VideoController(VideoService videoService) {
+    private final VodClient vodClient;
+
+    public VideoController(VideoService videoService, VodClient vodClient) {
         this.videoService = videoService;
+        this.vodClient = vodClient;
     }
 
     @ApiOperation("添加课程视频")
@@ -67,9 +73,24 @@ public class VideoController {
 
     @ApiOperation("根据id删除视频")
     @DeleteMapping("/{id}")
+    /**
+     * 删除小节，同时删除对应的阿里云视频
+     */
     public ResultVo deleteVideo(@PathVariable  String id){
-        //TODO  删除小节的时候，同时把里面的视频删除
-        videoService.removeById(id);
+
+        //1.根据小节id获取视频id，调用方法实现删除
+        Video video = videoService.getById(id);
+        String videoSourceId = video.getVideoSourceId();
+
+        if(StringUtils.isNotBlank(videoSourceId)){
+            //根据视频id  远程调用实现视频删除
+            ResultVo resultVo = vodClient.removeAliyunVideo(videoSourceId);
+            if(resultVo.getCode().equals(ResultCode.ERROR.getCode())){
+                throw GuliException.from(ResultCode.ERROR);
+            }
+        }
+
+        //2.删除小节
         return ResultVo.ok();
     }
 }

@@ -2,12 +2,21 @@
 server:
   port: 8001
 
+
+
 # 服务名
 spring:
   application:
     name: service-edu
+  # nacos服务地址
+  #spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
 
-# 环境设置 : dev、test、prod
+
+  # 环境设置 : dev、test、prod
   profiles:
     active: dev
 
@@ -29,3 +38,5 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
   mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml
+
+

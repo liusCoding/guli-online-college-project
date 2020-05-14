@@ -18,3 +18,4 @@ aliyun:
       keysecret: 5CKsFn3LmqojuNB5ly5GC38mZIjGDT
       #bucket可以在控制台创建，也可以使用java代码创建
       bucketname: edu-lius
+

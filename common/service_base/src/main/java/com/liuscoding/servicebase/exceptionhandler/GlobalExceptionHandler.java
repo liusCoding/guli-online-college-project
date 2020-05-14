@@ -1,10 +1,13 @@
 package com.liuscoding.servicebase.exceptionhandler;
 
+import com.liuscoding.commonutils.result.ResultCode;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.IOException;
 
 /**
  * @className: GlobalExceptionHandler
@@ -37,5 +40,12 @@ public class GlobalExceptionHandler {
     public ResultVo error(GuliException e) {
         log.error("异常信息：{}",e);
         return ResultVo.error().code(e.getCode()).message(e.getMsg());
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResultVo error(IOException e){
+        log.error("异常信息",e);
+
+        throw GuliException.from(ResultCode.UPLOAD_FILE_ERROR);
     }
 }
