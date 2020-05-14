@@ -4,6 +4,7 @@ import com.liuscoding.edu.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liuscoding.edu.model.form.CourseInfoForm;
 import com.liuscoding.edu.model.vo.CourseInfoVo;
+import com.liuscoding.edu.model.vo.CoursePublishVo;
 
 /**
  * <p>
@@ -34,4 +35,17 @@ public interface CourseService extends IService<Course> {
      * @param courseInfoForm
      */
     void updateCourse(CourseInfoForm courseInfoForm);
+
+    /**
+     * 根据课程id查询课程确认信息
+     * @param id 课程id
+     * @return CoursePublishVo
+     */
+    CoursePublishVo publishCourseInfo(String id);
+
+    /**
+     * 根据课程id删除课程信息
+     * @param courseId 课程id
+     */
+    void deleteCourse(String courseId);
 }

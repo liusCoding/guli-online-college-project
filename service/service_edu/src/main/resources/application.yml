@@ -27,3 +27,5 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml

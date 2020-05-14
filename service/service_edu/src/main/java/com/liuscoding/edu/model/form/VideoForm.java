@@ -1,34 +1,21 @@
-package com.liuscoding.edu.entity;
+package com.liuscoding.edu.model.form;
 
-import com.baomidou.mybatisplus.annotation.*;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * <p>
- * 课程视频
- * </p>
- *
- * @author liusCoding
- * @since 2020-05-10
+ * @className: VideoForm
+ * @description: 小节视频
+ * @author: liusCoding
+ * @create: 2020-05-13 17:35
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("edu_video")
-@ApiModel(value="Video对象", description="课程视频")
-public class Video implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Data
+public class VideoForm implements Serializable {
 
     @ApiModelProperty(value = "视频ID")
-    @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
     @ApiModelProperty(value = "课程ID")
@@ -64,16 +51,6 @@ public class Video implements Serializable {
     @ApiModelProperty(value = "视频源文件大小（字节）")
     private Long size;
 
-    @ApiModelProperty(value = "乐观锁")
-    private Long version;
-
-    @ApiModelProperty(value = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
-    private Date gmtCreate;
-
-    @ApiModelProperty(value = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date gmtModified;
 
 
 }

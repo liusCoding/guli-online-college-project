@@ -2,6 +2,7 @@ package com.liuscoding.edu.mapper;
 
 import com.liuscoding.edu.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liuscoding.edu.model.vo.CoursePublishVo;
 
 /**
  * <p>
@@ -12,5 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-05-10
  */
 public interface CourseMapper extends BaseMapper<Course> {
+
+    /**
+     * 根据课程id  查询课程信息
+     * @param courseId 课程id
+     * @return CoursePublishVo
+     */
+     CoursePublishVo getPublishCourseInfo(String courseId);
 
 }

@@ -91,4 +91,19 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
             throw GuliException.from(EduResultCode.DELETE_ERROR);
         }
     }
+
+    /**
+     * 根据课程id 删除章节
+     *
+     * @param courseId 课程id
+     */
+    @Override
+    public void deleteChapterByCourseId(String courseId) {
+        LambdaQueryWrapper<Chapter> chapterWrapper = new LambdaQueryWrapper<>();
+        chapterWrapper.eq(Chapter::getCourseId,courseId);
+        boolean removeResult = this.remove(chapterWrapper);
+        if(!removeResult){
+            throw  GuliException.from(EduResultCode.DELETE_ERROR);
+        }
+    }
 }

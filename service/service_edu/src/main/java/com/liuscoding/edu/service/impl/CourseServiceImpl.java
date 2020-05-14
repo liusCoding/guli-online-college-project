@@ -8,9 +8,8 @@ import com.liuscoding.edu.enums.EduResultCode;
 import com.liuscoding.edu.mapper.CourseMapper;
 import com.liuscoding.edu.model.form.CourseInfoForm;
 import com.liuscoding.edu.model.vo.CourseInfoVo;
-import com.liuscoding.edu.service.CourseDescriptionService;
-import com.liuscoding.edu.service.CourseService;
-import com.liuscoding.edu.service.SubjectService;
+import com.liuscoding.edu.model.vo.CoursePublishVo;
+import com.liuscoding.edu.service.*;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     private final CourseDescriptionService courseDescriptionService;
     private final SubjectService subjectService;
+    private final VideoService videoService;
+    private final ChapterService chapterService;
 
-    public CourseServiceImpl(CourseDescriptionService courseDescriptionService, SubjectService subjectService) {
+    public CourseServiceImpl(CourseDescriptionService courseDescriptionService, SubjectService subjectService, VideoService videoService, ChapterService chapterService) {
         this.courseDescriptionService = courseDescriptionService;
         this.subjectService = subjectService;
+        this.videoService = videoService;
+        this.chapterService = chapterService;
     }
 
     /**
@@ -116,6 +119,47 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         if (!updateDescResult){
             throw GuliException.from(EduResultCode.UPDATE_ERROR);
+        }
+
+    }
+
+    /**
+     * 根据课程id查询课程确认信息
+     *
+     * @param id 课程id
+     * @return CoursePublishVo
+     */
+    @Override
+    public CoursePublishVo publishCourseInfo(String id) {
+
+        CoursePublishVo publishCourseInfo = this.baseMapper.getPublishCourseInfo(id);
+        return publishCourseInfo;
+    }
+
+    /**
+     * 根据课程id删除课程信息
+     *
+     * @param courseId 课程id
+     */
+    @Override
+    public void deleteCourse(String courseId) {
+        //1.根据课程id删除小节
+        videoService.deleteVideoByCourseId(courseId);
+
+        //2.根据课程id删除章节
+        chapterService.deleteChapterByCourseId(courseId);
+
+        //3.根据课程id删除描述
+        boolean removeDesc = courseDescriptionService.removeById(courseId);
+        if(!removeDesc){
+            throw GuliException.from(EduResultCode.DELETE_ERROR);
+        }
+
+        //4.根据课程id删除课程本身
+        boolean removeCourseResult = this.removeById(courseId);
+
+        if(!removeCourseResult){
+            throw GuliException.from(EduResultCode.DELETE_ERROR);
         }
 
     }
