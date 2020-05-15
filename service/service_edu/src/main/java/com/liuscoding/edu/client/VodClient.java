@@ -16,7 +16,7 @@ import java.util.List;
  * @create: 2020-05-15 07:10
  */
 
-@FeignClient("service-vod")
+@FeignClient(value = "service-vod",fallback = VodFileDegradeFeignClient.class)
 @Component
 public interface VodClient {
 
