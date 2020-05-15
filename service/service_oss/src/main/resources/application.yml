@@ -7,6 +7,10 @@ spring:
 
   profiles:
     active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
 
 #阿里云OSS
 #不同的服务器，地址不同

@@ -91,6 +91,7 @@ public class VideoController {
         }
 
         //2.删除小节
+        videoService.removeById(id);
         return ResultVo.ok();
     }
 }

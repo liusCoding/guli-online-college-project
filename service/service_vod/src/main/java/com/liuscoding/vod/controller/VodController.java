@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -61,6 +62,13 @@ public class VodController {
             throw GuliException.from(ResultCode.DELETE_ERROR);
         }
 
+        return ResultVo.ok();
+    }
+
+    @ApiOperation("删除多个阿里云视频")
+    @DeleteMapping("/deleteBatch")
+    public ResultVo deleteBatch(@RequestParam("videoIdList") List<String> videoIdList){
+        vodService.deleteBatch(videoIdList);
         return ResultVo.ok();
     }
 }
