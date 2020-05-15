@@ -5,6 +5,7 @@ import com.liuscoding.cms.entity.CrmBanner;
 import com.liuscoding.cms.mapper.CrmBannerMapper;
 import com.liuscoding.cms.service.CrmBannerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
      * @return
      */
     @Override
+    @Cacheable(key = "'selectIndexList'",value = "banner")
     public List<CrmBanner> selectAllBanner() {
 
         //1.根据id进行降序排列，显示排列之后前两条记录
