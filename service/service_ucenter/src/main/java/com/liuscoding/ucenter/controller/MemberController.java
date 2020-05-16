@@ -1,12 +1,16 @@
 package com.liuscoding.ucenter.controller;
 
 
+import com.liuscoding.commonutils.JwtUtils;
 import com.liuscoding.commonutils.vo.ResultVo;
+import com.liuscoding.ucenter.entity.Member;
 import com.liuscoding.ucenter.model.form.MemberForm;
 import com.liuscoding.ucenter.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -42,6 +46,33 @@ public class MemberController {
         String token = memberService.login(memberForm);
 
         return ResultVo.ok().data("token",token);
+    }
+
+    /**
+     * 用户注册
+     *
+     */
+
+    @PostMapping("/register")
+    @ApiOperation("会员注册")
+    public ResultVo register(@RequestBody MemberForm memberForm){
+        memberService.register(memberForm);
+        return ResultVo.ok();
+    }
+
+    /**
+     * 获取会员信息
+     *
+     */
+    @ApiOperation("获取会员信息")
+    @GetMapping("/getMemberInfo")
+    public ResultVo getMemberInfo(HttpServletRequest request){
+        //调用jwt工具类的方法，根据Request对象获取头信息，返回用户id
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+
+        //根据数据库根据用户id获取用户信息
+        Member member = memberService.getById(memberId);
+        return ResultVo.ok().data("member",member);
     }
 }
 

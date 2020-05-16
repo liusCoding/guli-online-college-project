@@ -23,7 +23,9 @@ public enum ResultCode implements IResultCode {
 
     VALID_CODE_SEND_FAIL(20013,"短信验证码发送失败"),
 
-    LOGIN_ERROR(20014,"登录失败，用户名或密码错误！")
+    LOGIN_ERROR(20014,"登录失败，用户名或密码错误！"),
+
+    REGISTER_ERROR(20015,"注册失败")
     ;
 
     private Integer code;

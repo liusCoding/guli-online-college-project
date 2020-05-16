@@ -20,4 +20,17 @@ public interface MemberService extends IService<Member> {
      * @return token
      */
     String login(MemberForm memberForm);
+
+    /**
+     * 会员注册
+     * @param memberForm 会员表单
+     */
+    void register(MemberForm memberForm);
+
+    /**
+     * 根据openid 获取用户信息
+     * @param openid
+     * @return 会员
+     */
+    Member getMemberByOpenid(String openid);
 }

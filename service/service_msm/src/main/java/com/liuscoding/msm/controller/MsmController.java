@@ -6,6 +6,7 @@ import com.liuscoding.msm.service.MsmService;
 import com.liuscoding.msm.utils.RandomUtil;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class MsmController {
     }
 
     @GetMapping("/send/{phone}")
+    @ApiOperation("发送验证码")
     public ResultVo sendMsm(@PathVariable("phone") String phone){
 
         //从redis获取验证码，如果能获取的到直接返回

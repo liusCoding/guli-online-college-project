@@ -10,6 +10,8 @@ import com.liuscoding.ucenter.mapper.MemberMapper;
 import com.liuscoding.ucenter.model.form.MemberForm;
 import com.liuscoding.ucenter.service.MemberService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -26,6 +28,12 @@ import java.util.Optional;
  */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
+
+    private final StringRedisTemplate redisTemplate;
+
+    public MemberServiceImpl(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /**
      * 会员登录
@@ -71,5 +79,70 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         //生成token字符串，使用jwt字符串
         String jwtToken = JwtUtils.getJwtToken(member.getId(), member.getNickname());
         return jwtToken;
+    }
+
+    /**
+     * 会员注册
+     *
+     * @param memberForm 会员表单
+     */
+    @Override
+    public void register(MemberForm memberForm) {
+        //获取注册的数据
+
+        String mobile = memberForm.getMobile();
+        String password = memberForm.getPassword();
+        String code = memberForm.getCode();
+        String nickname = memberForm.getNickname();
+
+        //非空判断
+        if (   StringUtils.isBlank(mobile)
+                || StringUtils.isBlank(password)
+                || StringUtils.isBlank(code)
+                || StringUtils.isBlank(nickname)
+        ){
+            throw GuliException.from(ResultCode.REGISTER_ERROR);
+        }
+
+        //判断验证码
+        //获取redis验证码
+        String redisCode = redisTemplate.opsForValue().get(mobile);
+        if (!code.equalsIgnoreCase(redisCode)){
+            throw GuliException.from(ResultCode.REGISTER_ERROR);
+        }
+
+        //判断手机号是否重复，表里面是否存在相同手机号不进行添加
+        LambdaQueryWrapper<Member> memberQuery = new LambdaQueryWrapper<>();
+        memberQuery.eq(Member::getMobile,mobile);
+
+        int count = this.count(memberQuery);
+        if (count > 0){
+            throw GuliException.from(ResultCode.REGISTER_ERROR);
+        }
+
+        //数据添加到数据库
+        Member member = new Member();
+        BeanUtils.copyProperties(memberForm,member);
+        //密码需要做加密处理
+        member.setPassword(DigestUtils.md5DigestAsHex(member.getPassword().getBytes(StandardCharsets.UTF_8)));
+        this.save(member);
+
+    }
+
+    /**
+     * 根据openid 获取用户信息
+     *
+     * @param openid
+     * @return 会员
+     */
+    @Override
+    public Member getMemberByOpenid(String openid) {
+
+        LambdaQueryWrapper<Member> memberQuery = new LambdaQueryWrapper<>();
+        memberQuery.eq(Member::getOpenid,openid);
+        Member member = this.getOne(memberQuery);
+
+
+        return member;
     }
 }
