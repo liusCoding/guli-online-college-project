@@ -1,12 +1,13 @@
 # 服务器端口
 server:
-  port: 8001
+  port: 8005
+
 
 
 # 服务名
 spring:
   application:
-    name: service-edu
+    name: service-msm
   # nacos服务地址
   #spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
   cloud:
@@ -19,20 +20,20 @@ spring:
   profiles:
     active: dev
 
-# 数据库连接
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8
-    username: root
-    password: root
- # redis配置
+  # 数据库连接
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8
+#    username: root
+#    password: root
+  #redis配置
   redis:
     host: 120.79.185.188
     port: 6379
     password: 961122
-    timeout: 1800000
+    timeout: 180000
 
-# 返回json的全局时间格式
+  # 返回json的全局时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -42,7 +43,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
- # mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml
+  mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml
 
 #开启熔断机制
 feign:

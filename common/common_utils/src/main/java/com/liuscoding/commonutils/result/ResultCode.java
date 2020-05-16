@@ -20,6 +20,8 @@ public enum ResultCode implements IResultCode {
     FILE_EMPTY(20011,"文件为空"),
 
     DELETE_ERROR(20012,"删除失败"),
+
+    VALID_CODE_SEND_FAIL(20013,"短信验证码发送失败"),
     ;
 
     private Integer code;
