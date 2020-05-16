@@ -11,5 +11,11 @@
 
     <artifactId>common_utils</artifactId>
 
-
+    <dependencies>
+        <!-- JWT-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+    </dependencies>
 </project>
