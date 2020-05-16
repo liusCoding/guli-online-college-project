@@ -22,6 +22,8 @@ public enum ResultCode implements IResultCode {
     DELETE_ERROR(20012,"删除失败"),
 
     VALID_CODE_SEND_FAIL(20013,"短信验证码发送失败"),
+
+    LOGIN_ERROR(20014,"登录失败，用户名或密码错误！")
     ;
 
     private Integer code;

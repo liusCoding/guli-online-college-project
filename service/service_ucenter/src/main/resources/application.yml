@@ -20,13 +20,13 @@ spring:
   profiles:
     active: dev
 
-   数据库连接
+   #数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8
     username: root
     password: root
-  redis配置
+  #redis配置
   redis:
     host: 120.79.185.188
     port: 6379
