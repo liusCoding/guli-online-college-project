@@ -1,7 +1,8 @@
 package com.liuscoding.edu.service;
 
-import com.liuscoding.edu.entity.Teacher;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liuscoding.edu.entity.Teacher;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TeacherService extends IService<Teacher> {
 
+    /**
+     * C端讲师分页查询
+     * @param teacherPage 分页对象
+     * @return 分页结果集
+     */
+    Page<Teacher> getTeacherFrontList(Page<Teacher> teacherPage);
 }
