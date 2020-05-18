@@ -48,5 +48,21 @@ public class OrderController {
         Order order = orderService.getOne(queryWrapper);
         return ResultVo.ok().data("order",order);
     }
+
+    @ApiOperation("根据课程id和用户id查询订单表中订单状态")
+    @GetMapping("/isBuyCourse/{courseId}/{memberId}")
+    public Boolean isBuyCourse(@PathVariable String courseId,@PathVariable String memberId){
+
+        LambdaQueryWrapper<Order> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Order::getCourseId,courseId);
+        queryWrapper.eq(Order::getMemberId,memberId);
+        queryWrapper.eq(Order::getStatus,1);
+
+        int count = orderService.count(queryWrapper);
+        if(count > 0){
+            return true;
+        }
+        return false;
+    }
 }
 

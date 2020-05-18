@@ -46,9 +46,9 @@ mybatis-plus:
   mapper-locations: classpath:com/liuscoding/order/mapper/xml/*.xml
 
 #开启熔断机制
-#feign:
-#  hystrix:
-#    enabled: true
+feign:
+  hystrix:
+    enabled: true
 
 
 
