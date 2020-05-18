@@ -63,7 +63,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
 
             List<VideoVo> videoVoList = videoList.stream()
                     .filter(video -> video.getChapterId().equals(chapterVo.getId()))
-                    .map(video -> new VideoVo(video.getId(), video.getTitle()))
+                    .map(video -> new VideoVo(video.getId(), video.getTitle(),video.getVideoSourceId()))
                     .collect(toList());
 
             chapterVo.setChildren(videoVoList);

@@ -42,7 +42,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
- # mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml
+  mapper-locations: classpath:com/liuscoding/edu/mapper/xml/*.xml
 
 #开启熔断机制
 feign:

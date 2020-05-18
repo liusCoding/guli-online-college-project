@@ -19,4 +19,6 @@ public class VideoVo {
 
     private String title;
 
+    private String videoSourceId;
+
 }

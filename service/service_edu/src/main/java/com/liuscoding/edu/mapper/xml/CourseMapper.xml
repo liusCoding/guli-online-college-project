@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liuscoding.edu.mapper.CourseMapper">
-
+    <!--sql语句：根据课程id查询课程确认信息-->
     <select id="getPublishCourseInfo" resultType="com.liuscoding.edu.model.vo.CoursePublishVo">
         select
             ec.id ,ec.title,ec.price ,ec.lesson_num as lessonNum,ec.cover,
@@ -22,5 +22,19 @@
 
             where ec.id = #{courseId}
 
+    </select>
+    <!--sql语句：根据课程id查询课程基本信息-->
+    <select id="getBaseCourseInfo" resultType="com.liuscoding.edu.model.vo.CourseWebVo">
+         SELECT ec.id,ec.title,ec.price,ec.lesson_num AS lessonNum,ec.cover,
+               ec.buy_count AS buyCount,ec.view_count AS viewCount,
+               ecd.description,
+               et.id AS teacherId,et.name AS teacherName,et.intro,et.avatar,
+               es1.id AS subjectLevelOneId,es1.title AS subjectLevelOne,
+               es2.id AS subjectLevelTwoId,es2.title AS subjectLevelTwo
+      FROM edu_course ec LEFT OUTER JOIN edu_course_description ecd ON ec.id=ecd.id
+                    LEFT OUTER JOIN edu_teacher et ON ec.teacher_id=et.id
+                    LEFT OUTER JOIN edu_subject es1 ON ec.subject_parent_id=es1.id
+		            LEFT OUTER JOIN edu_subject es2 ON ec.subject_id=es2.id
+        WHERE ec.id=#{courseId}
     </select>
 </mapper>

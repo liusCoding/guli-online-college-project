@@ -1,10 +1,15 @@
 package com.liuscoding.edu.service;
 
-import com.liuscoding.edu.entity.Course;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liuscoding.edu.entity.Course;
 import com.liuscoding.edu.model.form.CourseInfoForm;
+import com.liuscoding.edu.model.query.CourseQuery;
 import com.liuscoding.edu.model.vo.CourseInfoVo;
 import com.liuscoding.edu.model.vo.CoursePublishVo;
+import com.liuscoding.edu.model.vo.CourseWebVo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -48,4 +53,19 @@ public interface CourseService extends IService<Course> {
      * @param courseId 课程id
      */
     void deleteCourse(String courseId);
+
+    /**
+     * 条件查询带分页查询课程
+     * @param coursePage 分页对象
+     * @param courseQuery 条件查询
+     * @return 查询结果
+     */
+    Map<String, Object> getCourseFrontList(Page<Course> coursePage, CourseQuery courseQuery);
+
+    /**
+     * 查询课程基本信息
+     * @param courseId
+     * @return
+     */
+    CourseWebVo getBaseCourseInfo(String courseId);
 }

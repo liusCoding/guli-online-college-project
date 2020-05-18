@@ -30,6 +30,7 @@ public class Course implements Serializable {
 
     @ApiModelProperty(value = "课程ID")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
+
     private String id;
 
     @ApiModelProperty(value = "课程讲师ID")
