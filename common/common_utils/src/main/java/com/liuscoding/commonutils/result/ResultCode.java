@@ -27,7 +27,15 @@ public enum ResultCode implements IResultCode {
 
     REGISTER_ERROR(20015,"注册失败"),
 
-    GET_PLAYAUTH_FAIL(20016,"获取视频凭证失败")
+    GET_PLAYAUTH_FAIL(20016,"获取视频凭证失败"),
+
+    REMOTE_CALL_COURSE(20017,"远程调用查询课程信息失败"),
+
+    REMOTE_CALL_MEMBER(20018,"远程调用查询会员信息失败"),
+
+    WXPAY_FAIL(20019,"微信支付失败"),
+
+    PARAMS_ERROR(20020,"参数校验失败")
     ;
 
     private Integer code;

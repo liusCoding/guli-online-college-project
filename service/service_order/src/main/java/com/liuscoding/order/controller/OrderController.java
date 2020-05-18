@@ -1,9 +1,15 @@
 package com.liuscoding.order.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.liuscoding.commonutils.JwtUtils;
+import com.liuscoding.commonutils.vo.ResultVo;
+import com.liuscoding.order.entity.Order;
+import com.liuscoding.order.service.OrderService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -14,8 +20,33 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-05-18
  */
 @RestController
-@RequestMapping("/order/order")
+@RequestMapping("/order")
+@CrossOrigin
 public class OrderController {
+    private final OrderService orderService;
 
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @ApiOperation("生成订单")
+    @PostMapping("/createOrder/{courseId}")
+    public ResultVo createOrder(@PathVariable String courseId, HttpServletRequest request){
+
+        //创建订单，返回订单号
+        String orderNo = orderService.createOrder(courseId, JwtUtils.getMemberIdByJwtToken(request));
+
+        return ResultVo.ok().data("orderNo",orderNo);
+    }
+
+    @ApiOperation("根据订单id查询订单详情")
+    @GetMapping("/getOrderInfo/{orderNo}")
+    public ResultVo getOrderInfo(@PathVariable String orderNo){
+        LambdaQueryWrapper<Order> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Order::getOrderNo,orderNo);
+
+        Order order = orderService.getOne(queryWrapper);
+        return ResultVo.ok().data("order",order);
+    }
 }
 

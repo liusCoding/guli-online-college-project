@@ -1,6 +1,7 @@
 package com.liuscoding.edu.controller.front;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.liuscoding.commonutils.model.vo.CourseOrderVo;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.edu.entity.Course;
 import com.liuscoding.edu.model.query.CourseQuery;
@@ -10,6 +11,7 @@ import com.liuscoding.edu.service.ChapterService;
 import com.liuscoding.edu.service.CourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,5 +58,15 @@ public class CourseFrontController {
         //根据课程id查询章节和小节
         List<ChapterVo> chapterVoList = chapterService.getChapterVideoByCourseId(courseId);
         return ResultVo.ok().data("courseWebVo",courseWebVo).data("chapterVoList",chapterVoList);
+    }
+
+
+    @GetMapping("/getCourseInfoOrder/{id}")
+    @ApiOperation(("根据课程id查询课程基本信息（远程调用）"))
+    public CourseOrderVo getCourseInfoOrder(@PathVariable String id){
+        CourseWebVo courseWebVo = courseService.getBaseCourseInfo(id);
+        CourseOrderVo courseOrderVo = new CourseOrderVo();
+        BeanUtils.copyProperties(courseWebVo,courseOrderVo);
+        return courseOrderVo;
     }
 }
