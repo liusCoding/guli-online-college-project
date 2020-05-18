@@ -1,11 +1,22 @@
-# 谷粒学院教育系统项目
+# 谷粒学院全栈开发项目
 
+<a name="gCELQ"></a>
+## GitHub 项目下载
+
+<br />[谷粒学院教育系统项目](https://github.com/liusCoding/guli-online-college-project) <br />
 
 <a name="krVom"></a>
-## 项目资料和笔记
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/440247/1589105174034-2fd543cb-6ed5-4cb1-b5be-f487ecfcfb09.png#align=left&display=inline&height=434&margin=%5Bobject%20Object%5D&name=image.png&originHeight=434&originWidth=643&size=34793&status=done&style=none&width=643)<br />
+## 项目资料和笔记获取 
 
+<br />clone项目，下载到本地，打开doc文件，解压即可。<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/440247/1589105174034-2fd543cb-6ed5-4cb1-b5be-f487ecfcfb09.png#align=left&display=inline&height=434&margin=%5Bobject%20Object%5D&name=image.png&originHeight=434&originWidth=643&size=34793&status=done&style=none&width=643)<br />
+
+<a name="2aCnV"></a>
+
+## 项目视频教程
+
+<br />**B站 谷粒学院-2020版微服务-全栈在线教育实战项目地址**：[https://b23.tv/hteMbT](https://b23.tv/hteMbT)
 <a name="543517e1"></a>
+
 ## 后端技术
 
 <br />系统后端接口部分，使用目前流行的SpringBoot+SpringCloud进行微服务架构，使用Feign、Gateway、Hystrix，以及阿里巴巴的Nacos等组件搭建了项目的基础环境。<br />
@@ -33,3 +44,10 @@ $ npm install # Or yarn install  #安装依赖
 
 
 $ npm run dev # 运行项目
+
+```
+
+<br />
+<br />
+<br />
+
