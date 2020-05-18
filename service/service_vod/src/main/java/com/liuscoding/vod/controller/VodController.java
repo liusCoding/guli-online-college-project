@@ -3,6 +3,8 @@ package com.liuscoding.vod.controller;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.liuscoding.commonutils.result.ResultCode;
 import com.liuscoding.commonutils.vo.ResultVo;
 import com.liuscoding.servicebase.exceptionhandler.exception.GuliException;
@@ -70,5 +72,31 @@ public class VodController {
     public ResultVo deleteBatch(@RequestParam("videoIdList") List<String> videoIdList){
         vodService.deleteBatch(videoIdList);
         return ResultVo.ok();
+    }
+
+    @ApiOperation("根据视频id获取视频凭证")
+    @GetMapping("/getPlayAuth/{id}")
+    public ResultVo getPlayAuth(@PathVariable String id ){
+
+        //创建初始化对象
+        DefaultAcsClient client = InitAliyunClient.initVodClient(VodConstants.ACCESS_KEY_ID, VodConstants.ACCESS_KEY_SECRET);
+
+        //创建获取凭证的request和response对象
+        GetVideoPlayAuthRequest authRequest = new GetVideoPlayAuthRequest();
+
+        //向authRequest设置视频id
+        authRequest.setVideoId(id);
+
+        //调用方法得到凭证
+        GetVideoPlayAuthResponse acsResponse = null;
+        try {
+            acsResponse = client.getAcsResponse(authRequest);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw GuliException.from(ResultCode.GET_PLAYAUTH_FAIL);
+        }
+        String playAuth = acsResponse.getPlayAuth();
+
+        return ResultVo.ok().data("playAuth",playAuth);
     }
 }

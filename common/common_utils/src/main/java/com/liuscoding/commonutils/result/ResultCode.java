@@ -25,7 +25,9 @@ public enum ResultCode implements IResultCode {
 
     LOGIN_ERROR(20014,"登录失败，用户名或密码错误！"),
 
-    REGISTER_ERROR(20015,"注册失败")
+    REGISTER_ERROR(20015,"注册失败"),
+
+    GET_PLAYAUTH_FAIL(20016,"获取视频凭证失败")
     ;
 
     private Integer code;
