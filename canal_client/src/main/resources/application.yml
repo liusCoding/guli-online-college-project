@@ -1,0 +1,20 @@
+# 服务端口
+
+server:
+  port: 10000
+
+# 服务名
+spring:
+  application:
+    name: canal-client
+  profiles:
+    active: dev
+
+
+
+    #数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8
+    username: root
+    password: root
