@@ -85,5 +85,11 @@ public class MemberController {
         BeanUtils.copyProperties(member,memberOrderVo);
         return memberOrderVo;
     }
+
+    @GetMapping("/countRegister/{day}")
+    public Integer countRegister(@PathVariable String day){
+        Integer count =  memberService.countRegisterDay(day);
+        return count;
+    }
 }
 

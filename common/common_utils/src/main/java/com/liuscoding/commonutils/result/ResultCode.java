@@ -31,7 +31,7 @@ public enum ResultCode implements IResultCode {
 
     REMOTE_CALL_COURSE(20017,"远程调用查询课程信息失败"),
 
-    REMOTE_CALL_MEMBER(20018,"远程调用查询会员信息失败"),
+    REMOTE_CALL_MEMBER(20018,"远程调用会员模块失败"),
 
     WXPAY_FAIL(20019,"微信支付失败"),
 

@@ -145,4 +145,15 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
         return member;
     }
+
+    /**
+     * 查询指定day的注册人数
+     *
+     * @param day
+     * @return 注册人数
+     */
+    @Override
+    public Integer countRegisterDay(String day) {
+        return this.baseMapper.countRegisterDay(day);
+    }
 }
