@@ -36,7 +36,7 @@ spring:
       - id: service-ucenter
         uri: lb://service-ucenter
         predicates:
-      - Path=/ucenter/** # 路径匹配
+        - Path=/ucenter/** # 路径匹配
 
       - id: service-oss
         uri: lb://service-ucenter
