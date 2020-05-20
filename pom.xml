@@ -9,6 +9,7 @@
         <module>infrastructure</module>
         <module>api_gateway</module>
         <module>api_gateway</module>
+        <module>service_acl</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
