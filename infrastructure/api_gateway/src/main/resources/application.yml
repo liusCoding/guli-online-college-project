@@ -42,3 +42,8 @@ spring:
         uri: lb://service-ucenter
         predicates:
         - Path=/eduoss/** # 路径匹配
+
+      - id: service-acl
+        uri: lb://service-acl
+        predicates:
+        - Path=/*/acl/** # 路径匹配

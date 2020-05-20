@@ -7,7 +7,6 @@ import com.liuscoding.security.security.DefaultPasswordEncoder;
 import com.liuscoding.security.security.TokenLogoutHandler;
 import com.liuscoding.security.security.TokenManager;
 import com.liuscoding.security.security.UnauthorizedEntryPoint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -80,10 +79,10 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/api/**",
-//                "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**"
-//               );
-        web.ignoring().antMatchers("/*/**"
-        );
+        web.ignoring().antMatchers("/api/**",
+                "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**","/doc.html/**"
+               );
+//        web.ignoring().antMatchers("/*/**"
+//        );
     }
 }

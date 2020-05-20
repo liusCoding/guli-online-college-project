@@ -1,0 +1,54 @@
+# 服务器端口
+server:
+  port: 8009
+
+
+
+# 服务名
+spring:
+  application:
+    name: service-acl
+  # nacos服务地址
+  #spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+
+  # 环境设置 : dev、test、prod
+  profiles:
+    active: dev
+
+    #数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8
+    username: root
+    password: root
+  #redis配置
+  redis:
+    host: 120.79.185.188
+    port: 6379
+    password: 961122
+    timeout: 180000
+
+  # 返回json的全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  mapper-locations: classpath:com/liuscoding/acl/mapper/xml/*.xml
+
+#开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+
+#设置hystrix 超时时间 默认1000ms
+
