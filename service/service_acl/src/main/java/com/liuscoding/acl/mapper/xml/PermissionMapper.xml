@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.aclservice.mapper.PermissionMapper">
+    <resultMap id="permissionMap" type="com.atguigu.aclservice.entity.Permission">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="permissionValue" column="permission_value"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="icon" column="icon"/>
+        <result property="status" column="status"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        p.id,p.pid,p.name,p.type,p.permission_value,path,p.component,p.icon,p.status,p.is_deleted,p.gmt_create,p.gmt_modified
+    </sql>
+
+    <select id="selectPermissionByUserId" resultMap="permissionMap">
+        select
+        <include refid="columns" />
+        from acl_user_role ur
+        inner join acl_role_permission rp on rp.role_id = ur.role_id
+        inner join acl_permission p on p.id = rp.permission_id
+        where ur.user_id = #{userId}
+        and ur.is_deleted = 0
+        and rp.is_deleted = 0
+        and p.is_deleted = 0
+    </select>
+
+    <select id="selectPermissionValueByUserId" resultType="String">
+    	select
+        p.permission_value
+        from acl_user_role ur
+        inner join acl_role_permission rp on rp.role_id = ur.role_id
+        inner join acl_permission p on p.id = rp.permission_id
+        where ur.user_id = #{userId}
+        and p.type = 2
+        and ur.is_deleted = 0
+        and rp.is_deleted = 0
+        and p.is_deleted = 0
+    </select>
+
+    <select id="selectAllPermissionValue" resultType="String">
+        select
+        permission_value
+        from acl_permission
+        where type = 2
+        and is_deleted = 0
+    </select>
+</mapper>

@@ -11,5 +11,11 @@
 
     <artifactId>service_acl</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.liuscoding</groupId>
+            <artifactId>spring_security</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
