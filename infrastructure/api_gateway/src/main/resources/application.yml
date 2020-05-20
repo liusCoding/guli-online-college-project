@@ -1,0 +1,44 @@
+server:
+  port: 8222
+
+spring:
+  application:
+    name: service-gateway
+
+  profiles:
+    active: dev
+
+ #nacos注册地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    #使用服务发现路由
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+      routes:
+      #设置路由id
+      - id: service-msm
+        # 设置路由的uri   lb://nacos注册服务名称
+        uri: lb://service-msm
+        predicates:
+        # 路径匹配
+        - Path=/msm/**
+
+      - id: service-edu
+        uri: lb://service-edu
+        predicates:
+        - Path=/edu/** # 路径匹配
+
+      - id: service-ucenter
+        uri: lb://service-ucenter
+        predicates:
+      - Path=/ucenter/** # 路径匹配
+
+      - id: service-oss
+        uri: lb://service-ucenter
+        predicates:
+        - Path=/eduoss/** # 路径匹配

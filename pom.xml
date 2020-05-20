@@ -6,6 +6,9 @@
         <module>service</module>
         <module>common</module>
         <module>canal_client</module>
+        <module>infrastructure</module>
+        <module>api_gateway</module>
+        <module>api_gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
