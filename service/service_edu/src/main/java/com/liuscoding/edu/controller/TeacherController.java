@@ -31,7 +31,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/edu/teacher")
 @Api(tags = "讲师管理")
-@CrossOrigin//解决跨域
+//@CrossOrigin//解决跨域
 public class TeacherController {
 
     /**

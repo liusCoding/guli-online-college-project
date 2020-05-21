@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/edu/subject")
-@CrossOrigin
+//@CrossOrigin
 @Api(tags = "课程科目管理")
 public class SubjectController {
 

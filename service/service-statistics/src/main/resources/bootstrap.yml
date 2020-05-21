@@ -1,0 +1,16 @@
+##配置中心地址
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#
+#  #dev 环境
+##  profiles:
+##    active: dev
+#
+#  # 该配置影响统一配置中心中的dataId
+#  application:
+#    name: service-statitics
+#
+#

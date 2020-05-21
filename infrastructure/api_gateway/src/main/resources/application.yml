@@ -21,25 +21,25 @@ spring:
 
       routes:
       #设置路由id
-      - id: service-msm
-        # 设置路由的uri   lb://nacos注册服务名称
-        uri: lb://service-msm
-        predicates:
-        # 路径匹配
-        - Path=/msm/**
+#      - id: service-msm
+#        # 设置路由的uri   lb://nacos注册服务名称
+#        uri: lb://service-msm
+#        predicates:
+#        # 路径匹配
+#        - Path=/msm/**
 
       - id: service-edu
         uri: lb://service-edu
         predicates:
         - Path=/edu/** # 路径匹配
 
-      - id: service-ucenter
-        uri: lb://service-ucenter
-        predicates:
-        - Path=/ucenter/** # 路径匹配
+#      - id: service-ucenter
+#        uri: lb://service-ucenter
+#        predicates:
+#        - Path=/ucenter/** # 路径匹配
 
       - id: service-oss
-        uri: lb://service-ucenter
+        uri: lb://service-oss
         predicates:
         - Path=/eduoss/** # 路径匹配
 
@@ -47,3 +47,13 @@ spring:
         uri: lb://service-acl
         predicates:
         - Path=/*/acl/** # 路径匹配
+
+      - id: service-order
+        uri: lb://service-order
+        predicates:
+        - Path=/order/** # 路径匹配
+
+      - id: service-vod
+        uri: lb://service-vod
+        predicates:
+        - Path=/eduvod/** # 路径匹配
