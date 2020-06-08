@@ -1,9 +1,14 @@
 # 谷粒学院全栈开发项目
 
 <a name="gCELQ"></a>
+
 ## GitHub 项目下载
 
 <br />[谷粒学院教育系统项目](https://github.com/liusCoding/guli-online-college-project) <br />
+
+## Java学习笔记和路径（可能是全网最全的学习笔记）
+
+[Java学习之路](https://www.yuque.com/lius/java)
 
 <a name="krVom"></a>
 ## 项目资料和笔记获取 
